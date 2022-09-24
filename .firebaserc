@@ -1,13 +1,4 @@
 {
-  "targets": {
-    "angular-crud-b41ca": {
-      "hosting": {
-        "firebase_crud": [
-          "angular-crud-b41ca"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "angular-crud-b41ca"
   }

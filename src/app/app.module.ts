@@ -11,11 +11,17 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import {AngularFireModule} from "@angular/fire/compat";
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrudCompComponent
+    CrudCompComponent,
+    LoginComponent,
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

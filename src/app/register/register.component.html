@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col"></div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <h4 class="text-dark text-muted">Register</h4>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="email" name="email" [(ngModel)]="email">
+              <label for="email">Email</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="password" name="password" [(ngModel)]="password">
+              <label for="password">Password</label>
+            </div>
+
+            <button type="button" class="btn btn-info" (click)="register()">Register</button>
+
+            <div class="row">
+              <div class="col-md-6">
+                <a href="/login" style="text-decoration: none;"> Have already an account? <span class="text-danger">Login </span></a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="co"></div>
+  </div>
+</div>

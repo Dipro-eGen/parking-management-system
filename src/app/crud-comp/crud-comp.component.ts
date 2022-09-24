@@ -12,6 +12,7 @@ export class CrudCompComponent implements OnInit {
 
   studentDtoList: StudentDto[] = [];
   studentDtoFg: FormGroup;
+  editFlag: boolean = false;
 
 
   constructor(
@@ -58,11 +59,14 @@ export class CrudCompComponent implements OnInit {
 
   onEdit(student: StudentDto) {
     this.studentDtoFg.patchValue(student);
+    this.editFlag = true;
   }
 
   onUpdate () {
     const t: StudentDto = new StudentDto({});
     const updateStudent: StudentDto = {...t,...this.studentDtoFg.value};
     this.studentService.updateStudent(updateStudent);
+    this.studentDtoFg.reset();
+    this.editFlag = false;
   }
 }
