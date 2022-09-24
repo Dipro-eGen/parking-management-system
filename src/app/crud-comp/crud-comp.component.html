@@ -1,1 +1,56 @@
-<p>crud-comp works!</p>
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <form [formGroup]="studentDtoFg">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName">
+        <label for="firstName">First name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+        <label for="lastName">Last name</label>
+      </div>
+
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" name="email" formControlName="email">
+          <label for="email">Email</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="mobile" class="form-control" id="mobile" name="mobile" formControlName="mobile">
+          <label for="mobile">Phone</label>
+        </div>
+
+      <button type="submit" class="btn btn-outline-secondary me-3" (click)="addStudent()">Add Student</button>
+      <button type="submit" class="btn btn-outline-success" (click)="onUpdate()">Update</button>
+        </form>
+    </div>
+
+
+    <div class="col-md-8">
+      <table class="table table-bordered table-responsive table-striped">
+        <thead>
+        <tr>
+          <td>First Name</td>
+          <td>Last Name</td>
+          <td>Email</td>
+          <td>Mobile</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let student of studentDtoList">
+          <td>{{student.firstName}}</td>
+          <td>{{student.lastName}}</td>
+          <td>{{student.email}}</td>
+          <td>{{student.mobile}}</td>
+          <td><button class="btn btn-outline-success" (click)="onEdit(student)">Edit</button></td>
+          <td><button class="btn btn-outline-danger" (click)="deleteStudent(student)">Delete</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+

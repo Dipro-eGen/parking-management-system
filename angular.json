@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -38,7 +39,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1000mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -100,8 +101,21 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "firebase_crud:build:production",
+            "firebaseProject": "angular-crud-b41ca",
+            "firebaseHostingSite": "angular-crud-b41ca"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c6c6667b-fc32-447d-8953-0080a122300a"
   }
 }
