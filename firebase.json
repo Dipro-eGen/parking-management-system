@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/firebase_crud",
+    "public": "dist/angular-crud",
     "ignore": [
       "firebase.json",
       "**/.*",
