@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {StudentDto} from "../dto/StudentDto";
 import {CrudService} from "./crud.service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {VehicleDto} from "../dto/VehicleDto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-crud-comp',
@@ -10,32 +11,42 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 })
 export class CrudCompComponent implements OnInit {
 
-  studentDtoList: StudentDto[] = [];
-  studentDtoFg: FormGroup;
+  vehicleDtoList: VehicleDto[] = [];
+  vehicleDtoFg: FormGroup;
   editFlag: boolean = false;
-
+  vehicleType: Array<string> = ["Microbus","Car","Truck"]
 
   constructor(
     private fb: FormBuilder,
-    public studentService: CrudService,
+    public vehicleService: CrudService,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
-    this.studentDtoFg = this.fb.group({
+    this.vehicleDtoFg = this.fb.group({
       id: [null],
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      mobile: [''],
+      vehicleLicenceNumber: [],
+      vehicleType: [],
+      vehicleOwnerName: [],
+      status: [],
+      vehicleOwnerPhone: [],
+      vehicleOwnerAddress: [],
+      vehicleEntryDate: [],
+      entryTime: [],
+      vehicleExitDate: [],
+      exitTime: [],
+      vehicleCharges: [],
     });
-    this.getAllStudent();
+
+
+    this.getAllVehicle();
   }
 
-  getAllStudent() {
-    this.studentService.getAllStudent().subscribe(res => {
-      this.studentDtoList = res.map((e: any) => {
-        const data: StudentDto = e.payload.doc.data();
+  getAllVehicle() {
+    this.vehicleService.getAllVehicle().subscribe(res => {
+      this.vehicleDtoList = res.map((e: any) => {
+        const data: VehicleDto = e.payload.doc.data();
         data.id = e.payload.doc.id;
         return data;
       })
@@ -44,29 +55,48 @@ export class CrudCompComponent implements OnInit {
     })
   }
 
-  deleteStudent(student: StudentDto) {
-    if (window.confirm('Delete' + student.firstName + ' ?' )) {
-      this.studentService.deleteStudent(student);
-    }
+
+
+
+  addVehicle() {
+   const newVehicle: VehicleDto = this.vehicleDtoFg.value;
+   this.vehicleService.addStudent(newVehicle);
+   this.vehicleDtoFg.reset();
   }
 
-
-  addStudent() {
-   const newStudent: StudentDto = this.studentDtoFg.value;
-   this.studentService.addStudent(newStudent);
-   this.studentDtoFg.reset();
-  }
-
-  onEdit(student: StudentDto) {
-    this.studentDtoFg.patchValue(student);
+  onEdit(vehicleDto: VehicleDto) {
+    this.vehicleDtoFg.patchValue(vehicleDto);
     this.editFlag = true;
   }
 
   onUpdate () {
-    const t: StudentDto = new StudentDto({});
-    const updateStudent: StudentDto = {...t,...this.studentDtoFg.value};
-    this.studentService.updateStudent(updateStudent);
-    this.studentDtoFg.reset();
+    const t: VehicleDto = new VehicleDto({});
+    const updateVehicle: VehicleDto = {...t,...this.vehicleDtoFg.value};
+    this.vehicleService.updateVehicle(updateVehicle);
+    this.vehicleDtoFg.reset();
     this.editFlag = false;
+  }
+
+  onSelectCarType(event: string) {
+    if(event === 'Microbus'){
+      this.vehicleDtoFg.patchValue({
+        vehicleCharges: 150
+      })
+    }
+   else if(event === 'Car'){
+      this.vehicleDtoFg.patchValue({
+        vehicleCharges: 100
+      })
+    }
+    else if(event === 'Truck'){
+      this.vehicleDtoFg.patchValue({
+        vehicleCharges: 200
+      })
+    }
+
+  }
+
+  navigateToDashboard() {
+    this.router.navigateByUrl('/dashboard');
   }
 }

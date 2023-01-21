@@ -1,23 +1,45 @@
 import {prop} from "@rxweb/reactive-form-validators";
 
 
-export class StudentDto{
+export class VehicleDto{
   @prop()
   id: string| null;
 
   @prop()
-  firstName: string| null;
+  vehicleLicenceNumber: string| null;
 
   @prop()
-  lastName: string | null;
+  vehicleType: string | null;
 
   @prop()
-  email: string | null;
+  vehicleOwnerName: string | null;
 
   @prop()
-  mobile: string | null;
+  vehicleOwnerPhone: string | null;
 
-  public constructor(o?: Partial<StudentDto>) {
+  @prop()
+  status: string;   // in or out
+
+  @prop()
+  vehicleOwnerAddress: string | null;
+
+  @prop()
+  vehicleEntryDate: string | null;
+
+  @prop()
+  entryTime: string | null;
+
+  @prop()
+  vehicleExitDate: string | null;
+
+  @prop()
+  exitTime: string | null;
+
+  @prop()
+  vehicleCharges: number | null;
+
+
+  public constructor(o?: Partial<VehicleDto>) {
     Object.assign(this, o);
   }
 

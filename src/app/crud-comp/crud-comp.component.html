@@ -1,50 +1,154 @@
+<div class="row">
+  <div class="d-flex justify-content-center align-content-center">
+    <h1 class="text-success">Selise Car Parking System</h1>
+  </div>
+  <div class="d-flex justify-content-end align-content-end">
+    <button class="btn btn-info" (click)="navigateToDashboard()">Dashboard ></button>
+  </div>
+</div>
+
 <div class="container-fluid">
   <div class="row mt-5">
     <div class="col-md-4">
-      <form [formGroup]="studentDtoFg">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName">
-        <label for="firstName">First name</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
-        <label for="lastName">Last name</label>
-      </div>
+      <div class="card">
+        <div class="card-body">
+          <h2>Add a Car</h2>
+          <form [formGroup]="vehicleDtoFg">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="firstName" name="firstName" formControlName="vehicleLicenceNumber">
+              <label for="firstName">Vehicle Licence Number</label>
+            </div>
 
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="email" name="email" formControlName="email">
-          <label for="email">Email</label>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="lastName" name="vehicleOwnerName" formControlName="vehicleOwnerName">
+                  <label for="lastName">Vehicle Owner Name</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="mobile" class="form-control" id="mobile" name="vehicleOwnerPhone" formControlName="vehicleOwnerPhone">
+                  <label for="mobile">vehicle Owner Phone</label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-floating my-3">
+              <input type="text" class="form-control" id="vehicleOwnerAddress" name="vehicleOwnerAddress" formControlName="vehicleOwnerAddress">
+              <label for="vehicleOwnerAddress">Vehicle Owner Address</label>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Vehicle Type</label>
+
+                <ng-select [items]="vehicleType"
+                           class="form-control"
+                           id="vehicleType"
+                           formControlName="vehicleType"
+                           (change)="onSelectCarType($event)"
+                >
+
+                </ng-select>
+
+<!--
+                <select formControlName="vehicleType"  class="form-select" >
+                  <option selected value="Car">Car</option>
+                  <option value="Microbus">Microbus</option>
+                  <option value="Truck">Truck</option>
+                </select>-->
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mt-3">
+                  <input  type="dis" class="form-control" id="vehicleCharges" name="vehicleCharges" formControlName="vehicleCharges">
+                  <label for="vehicleCharges">Vehicle Charges</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-md-6 mt-3">
+                <div class="form-group mt-4">
+                  <label>Vehicle Entry Date</label>
+                  <input [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" autocomplete="off"
+                         bsDatepicker
+                         class="form-control"
+                         formControlName="vehicleEntryDate"
+                         id="vehicleEntryDate"
+                         name="vehicleEntryDate" placeholder="DD/MM/YYYY" type="text">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Vehicle Entry Date</label>
+                  <ngb-timepicker formControlName="entryTime"></ngb-timepicker>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row my-3">
+              <div class="col-md-6 mt-3">
+                <div class="form-group mt-4">
+                  <label>Vehicle Exit Date</label>
+                  <input [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" autocomplete="off"
+                         bsDatepicker
+                         class="form-control"
+                         formControlName="vehicleExitDate"
+                         id="vehicleExitDate"
+                         name="vehicleExitDate" placeholder="DD/MM/YYYY" type="text">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Vehicle Exit Time</label>
+                  <ngb-timepicker formControlName="exitTime"></ngb-timepicker>
+                </div>
+              </div>
+            </div>
+
+
+            <label class="form-label">Status</label>
+            <select formControlName="status" class="form-select">
+              <option selected value="In">In</option>
+              <option value="Out">Out</option>
+            </select>
+
+
+
+            <button *ngIf="!editFlag" type="submit" class="btn btn-success my-3 me-3" (click)="addVehicle()">Add Vehicle</button>
+            <button *ngIf="editFlag" type="submit" class="btn btn-outline-success" (click)="onUpdate()">Update</button>
+          </form>
         </div>
-
-        <div class="form-floating mb-3">
-          <input type="mobile" class="form-control" id="mobile" name="mobile" formControlName="mobile">
-          <label for="mobile">Phone</label>
-        </div>
-
-      <button *ngIf="!editFlag" type="submit" class="btn btn-outline-secondary me-3" (click)="addStudent()">Add Student</button>
-      <button *ngIf="editFlag" type="submit" class="btn btn-outline-success" (click)="onUpdate()">Update</button>
-        </form>
+      </div>
     </div>
 
-
     <div class="col-md-8">
+      <h2>Vehicle Information</h2>
       <table class="table table-bordered table-responsive table-striped">
         <thead>
         <tr>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>Email</td>
-          <td>Mobile</td>
+          <td>Vehicle Owner Name</td>
+          <td>Vehicle Type</td>
+          <td>Vehicle Licence Number</td>
+          <td>Entry Time</td>
+          <td>ExitT ime</td>
+          <td>Status</td>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let student of studentDtoList">
-          <td>{{student.firstName}}</td>
-          <td>{{student.lastName}}</td>
-          <td>{{student.email}}</td>
-          <td>{{student.mobile}}</td>
-          <td><button class="btn btn-outline-success" (click)="onEdit(student)">Edit</button></td>
-          <td><button class="btn btn-outline-danger" (click)="deleteStudent(student)">Delete</button></td>
+        <tr *ngFor="let vehicle of vehicleDtoList">
+          <td>{{vehicle.vehicleOwnerName}}</td>
+          <td>{{vehicle.vehicleType}}</td>
+          <td>{{vehicle.vehicleLicenceNumber}}</td>
+          <td>{{vehicle.entryTime['hour']}} : {{vehicle.entryTime['minute']}}</td>
+          <td>{{vehicle.exitTime['hour']}} : {{vehicle.exitTime['minute']}}</td>
+          <td>{{vehicle.status}}</td>
+          <td><button [disabled]="vehicle.status !== 'In' " class="btn btn-outline-success" (click)="onEdit(vehicle)">Edit</button></td>
+
         </tr>
         </tbody>
       </table>

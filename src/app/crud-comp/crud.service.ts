@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {StudentDto} from "../dto/StudentDto";
+import {VehicleDto} from "../dto/VehicleDto";
 
 @Injectable()
 export class CrudService {
@@ -9,24 +9,24 @@ export class CrudService {
   }
 
   //add
-  addStudent(student: StudentDto) {
-    student.id = this.store.createId();
-    return this.store.collection('/Students').add(student);
+  addStudent(vehicleDto: VehicleDto) {
+    vehicleDto.id = this.store.createId();
+    return this.store.collection('/Vehicles').add(vehicleDto);
   }
 
   //get
-  getAllStudent() {
-    return this.store.collection('/Students').snapshotChanges();
+  getAllVehicle() {
+    return this.store.collection('/Vehicles').snapshotChanges();
   }
 
   //delete
-  deleteStudent(student: StudentDto) {
-    return this.store.collection('Students').doc(student.id).delete();
+  deleteVehicle(vehicle: VehicleDto) {
+    return this.store.collection('Vehicles').doc(vehicle.id).delete();
   }
 
   //update
 
-  updateStudent(student: StudentDto) {
-   return this.store.collection('Students').doc(student.id).update(student);
+  updateVehicle(vehicle: VehicleDto) {
+   return this.store.collection('Vehicles').doc(vehicle.id).update(vehicle);
    }
 }
